@@ -1,0 +1,75 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CloudGenerator : MonoBehaviour
+{
+    public GameObject cloudWave;
+    public GameObject fishPrefab;
+    GameObject player;
+    float createHeight = 10.0f;
+    float recentHeight = -2.5f;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        this.player = GameObject.Find("cat");
+
+        /*
+        for (int ii = 0; ii < 50; ii++) // 50번 생성
+        {
+            SpawnCloud(recentHeight);
+            recentHeight += 2.5f;
+        }
+        */  // 수동 구름 생성 방법 --> Update()에서 업그레이드함
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Vector3 playerPos = this.player.transform.position;
+
+        // 일정 높이에 구름 생성
+        if (recentHeight < playerPos.y + createHeight)
+        {
+            SpawnCloud(recentHeight);
+            recentHeight += 2.5f;
+        }
+    }
+
+    void SpawnCloud(float a_Height)
+    {
+        int a_Level = (int)(a_Height / 15.0f);
+
+        int a_HideCount = 0;
+        if (a_Level <= 0)
+            a_HideCount = 0;
+        else if (a_Level == 1)
+            a_HideCount = Random.Range(0, 2); // 0~1
+        else if (a_Level == 2)
+            a_HideCount = Random.Range(0, 3); // 0~2
+        else if (a_Level == 3)
+            a_HideCount = Random.Range(1, 3); // 1~2
+        else if (a_Level == 4)
+            a_HideCount = Random.Range(1, 4); // 1~3
+        else // if (a_Level == 5)
+            a_HideCount = Random.Range(2, 4); // 2~3
+        
+        // else if (a_Level == 6)
+        // a_HideCount = Random.Range(2,5); // 2 ~ 4
+        // else if (a_Level == 7)
+        // a_HideCount = Random.Range(3,5); // 3 ~ 4
+        
+        // 구름생성
+        GameObject go = Instantiate(cloudWave);
+        go.transform.position = new Vector3(0, a_Height, 0);
+        go.GetComponent<CloudWaveController>().SetHideCloud(a_HideCount);
+    }
+
+    void SpawnFish(float a_Height)
+    {
+        // 생선생성
+        GameObject go = Instantiate(fishPrefab);
+        go.transform.position = new Vector3(0, a_Height + 3f, 0);
+    }
+}

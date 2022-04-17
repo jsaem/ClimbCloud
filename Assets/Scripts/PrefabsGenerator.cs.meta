@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c1b2c842abb49824691a4427f509b04e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - arrowPrefab: {instanceID: 0}
+  - cloudPrefab: {instanceID: 0}
+  - fishPrefab: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
